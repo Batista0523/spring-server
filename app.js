@@ -9,4 +9,5 @@ app.get("*", (req, res) => {
     res.status(404).json({success: false, data: {error: "page"}})
 })
 
+
 module.exports = app;
