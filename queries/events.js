@@ -3,10 +3,9 @@ const db = require("../db/dbConfig.js");
 const getAllEvents = async () => {
   try {
     const allEvents = await db.any("SELECT * FROM events");
-    console.log("data retrieved from databse", allEvents);
     return allEvents;
   } catch (err) {
-    console.error(`Error in getAllEvents ${err}` );
+    console.error(`Error in getAllEvents ${err}`);
   }
 };
 
@@ -25,11 +24,12 @@ const getOneEvent = async (event_id) => {
 const createEvent = async (event) => {
   try {
     const createdEvent = db.one(
-      "INSER INTO events (eventName , capacity , floor) VALUES($1,$2,$3) RETURNING *",
+      "INSERT INTO events (eventName , capacity , floor) VALUES($1,$2,$3) RETURNING *",
       [event.eventName, event.capacity, event.floor]
     );
     return createdEvent;
   } catch (error) {
+    console.error("hello", error);
     return error;
   }
 };
@@ -59,11 +59,10 @@ const updateEvent = async (event_id, event) => {
   }
 };
 
-
 module.exports = {
-    getAllEvents,
-    getOneEvent,
-    deleteEvent,
-    updateEvent,
-    createEvent,
-}
+  getAllEvents,
+  getOneEvent,
+  deleteEvent,
+  updateEvent,
+  createEvent,
+};

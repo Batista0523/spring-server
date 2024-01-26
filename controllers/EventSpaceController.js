@@ -30,8 +30,8 @@ events.get("/", async (req, res) => {
 });
 
 events.get("/:event_id", async (req, res) => {
-  const { id } = req.params;
-  const oneEvent = await getOneEvent(id);
+  const { event_id } = req.params;
+  const oneEvent = await getOneEvent(event_id);
   try {
     if (oneEvent) {
       res.json(oneEvent);
@@ -43,6 +43,7 @@ events.get("/:event_id", async (req, res) => {
 
 events.post("/", async (req, res) => {
   try {
+    console.log(req.body)
     const createdEvent = await createEvent(req.body);
     res.json(createdEvent);
   } catch (err) {
@@ -52,8 +53,8 @@ events.post("/", async (req, res) => {
 
 events.delete("/:event_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedEvent = await deleteEvent(id);
+    const { event_id } = req.params;
+    const deletedEvent = await deleteEvent(event_id);
     if (deletedEvent) {
       res.status(200).json({ success: true, payload: { data: deletedEvent } });
     }
@@ -63,9 +64,9 @@ events.delete("/:event_id", async (req, res) => {
 });
 
 events.put("/:event_id", async (req, res) => {
-  const { id } = req.params;
-  const updatedEvent = await updateEvent(id, req.body);
-  if (updatedEvent.id) {
+  const { event_id } = req.params;
+  const updatedEvent = await updateEvent(event_id, req.body);
+  if (updatedEvent.event_id) {
     res.status(200).json(updatedEvent);
   } else
     res.status(404).json({ sucess: false, data: { error: "no event found" } });

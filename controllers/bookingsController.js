@@ -1,7 +1,6 @@
 const express = require("express");
 
-const bookings = express.Router();
-
+const bookings = express.Router({ mergeParams: true });
 
 const {
   getAllbookings,
@@ -11,11 +10,9 @@ const {
   createbooking,
 } = require("../queries/bookings.js");
 
-
-
-
 bookings.get("/", async (req, res) => {
-  const allbookings = await getAllbookings();
+  const { event_id } = req.params;
+  const allbookings = await getAllbookings(event_id);
   console.log(allbookings);
   try {
     if (allbookings[0]) {
@@ -28,8 +25,8 @@ bookings.get("/", async (req, res) => {
 });
 
 bookings.get("/:booking_id", async (req, res) => {
-  const { id } = req.params;
-  const onebooking = await getOnebooking(id);
+  const { booking_id } = req.params;
+  const onebooking = await getOnebooking(booking_id);
   try {
     if (onebooking) {
       res.json(onebooking);
@@ -50,10 +47,12 @@ bookings.post("/", async (req, res) => {
 
 bookings.delete("/:booking_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedbooking = await deletebooking(id);
+    const { booking_id } = req.params;
+    const deletedbooking = await deletebooking(booking_id);
     if (deletedbooking) {
-      res.status(200).json({ success: true, payload: { data: deletedbooking } });
+      res
+        .status(200)
+        .json({ success: true, payload: { data: deletedbooking } });
     }
   } catch (err) {
     res.status(404).json({ success: false, data: { error: err } });
@@ -61,12 +60,14 @@ bookings.delete("/:booking_id", async (req, res) => {
 });
 
 bookings.put("/:booking_id", async (req, res) => {
-  const { id } = req.params;
-  const updatedbooking = await updatebooking(id, req.body);
-  if (updatedbooking.id) {
+  const { booking_id } = req.params;
+  const updatedbooking = await updatebooking(booking_id, req.body);
+  if (updatedbooking.booking_id) {
     res.status(200).json(updatedbooking);
   } else
-    res.status(404).json({ sucess: false, data: { error: "no booking found" } });
+    res
+      .status(404)
+      .json({ sucess: false, data: { error: "no booking found" } });
 });
 
 module.exports = bookings;

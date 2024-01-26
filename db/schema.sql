@@ -6,7 +6,7 @@ CREATE DATABASE events_dev;
 
 CREATE TABLE events (
  event_id SERIAL PRIMARY KEY,
- eventName VARCHAR(35) NOT NULL,
+ eventName VARCHAR(200) NOT NULL,
  capacity INT DEFAULT 0,
  floor INT DEFAULT 0
 );
