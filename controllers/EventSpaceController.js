@@ -13,7 +13,7 @@ const {
 
 
 
-const bookingsController = require("./bookingsController.js");
+const bookingsController = require("../controllers/bookingsController.js");
 events.use("/:event_id/bookings", bookingsController);
 
 events.get("/", async (req, res) => {

@@ -5,5 +5,5 @@ require("dotenv").config();
 const PORT = process.env.PORT 
 
 app.listen(PORT, () => {
-    console.log(`Stocks live on port:${PORT}`)
+    console.log(`Events live on port:${PORT}`)
 })
