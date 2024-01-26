@@ -1,8 +1,9 @@
 const db = require("../db/dbConfig.js");
 
-const getAllbookings = async () => {
+const getAllbookings = async (event_id) => {
   try {
-    const allbookings = await db.any("SELECT * FROM bookings");
+    console.log(event_id, '<----hello')
+    const allbookings = await db.any("SELECT * FROM bookings WHERE event_id=$1", event_id);
     console.log("data retrieved from databse", allbookings);
     return allbookings;
   } catch (err) {
@@ -25,7 +26,7 @@ const getOnebooking = async (booking_id) => {
 const createbooking = async (booking) => {
   try {
     const createdbooking = db.one(
-      "INSER INTO bookings (meetingName , meetingInRoomId , startDate ,endDate, attendees, event_id ) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",
+      "INSERT INTO bookings (meetingName , meetingInRoomId , startDate ,endDate, attendees, event_id ) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",
       [
         booking.meetingName,
         booking.meetingInRoomId,
