@@ -6,7 +6,7 @@ const getAllEvents = async () => {
     console.log("data retrieved from databse", allEvents);
     return allEvents;
   } catch (err) {
-    console.error("Error in getAllEvents");
+    console.error(`Error in getAllEvents ${err}` );
   }
 };
 
@@ -50,8 +50,8 @@ const updateEvent = async (event_id, event) => {
   try {
     const { eventName, capacity, floor } = event;
     const updatedEvent = await db.one(
-      "UPDATE events SET eventName=$1 , capacity=$2, floor=$3 WHERE event_id RETURNING *",
-      [eventName, capacity, floor, id]
+      "UPDATE events SET eventName=$1 , capacity=$2, floor=$3 WHERE event_id=$4 RETURNING *",
+      [eventName, capacity, floor, event_id]
     );
     return updatedEvent;
   } catch (err) {
