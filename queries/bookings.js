@@ -32,7 +32,7 @@ const createbooking = async (booking) => {
         booking.meetingInRoomId,
         booking.startDate,
         booking.endDate,
-        booking.anttendees,
+        booking.attendees,
         booking.event_id
       ]
     );

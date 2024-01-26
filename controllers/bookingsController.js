@@ -47,8 +47,8 @@ bookings.post("/", async (req, res) => {
 
 bookings.delete("/:booking_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedbooking = await deletebooking(id);
+    const { booking_id } = req.params;
+    const deletedbooking = await deletebooking(booking_id);
     if (deletedbooking) {
       res
         .status(200)
@@ -60,9 +60,9 @@ bookings.delete("/:booking_id", async (req, res) => {
 });
 
 bookings.put("/:booking_id", async (req, res) => {
-  const { id } = req.params;
-  const updatedbooking = await updatebooking(id, req.body);
-  if (updatedbooking.id) {
+  const { booking_id } = req.params;
+  const updatedbooking = await updatebooking(booking_id, req.body);
+  if (updatedbooking.booking_id) {
     res.status(200).json(updatedbooking);
   } else
     res
