@@ -10,16 +10,16 @@ const {
   createbooking,
 } = require("../queries/bookings.js");
 
-bookings.get("/", async (req, res) => {
+const{checkBookings} = require("../validations/checkBookings.js")
+
+bookings.get("/", checkBookings, async (req, res) => {
   const { event_id } = req.params;
   const allbookings = await getAllbookings(event_id);
-  console.log(allbookings);
   try {
     if (allbookings[0]) {
       res.status(200).json({ success: true, data: { payload: allbookings } });
     }
   } catch (err) {
-    console.log(err);
     res.status(404).json({ success: false, data: { error: err } });
   }
 });

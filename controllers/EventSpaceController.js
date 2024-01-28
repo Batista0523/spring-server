@@ -18,13 +18,11 @@ events.use("/:event_id/bookings", bookingsController);
 
 events.get("/", async (req, res) => {
   const allEvents = await getAllEvents();
-  console.log(allEvents);
   try {
     if (allEvents[0]) {
       res.status(200).json({ success: true, data: { payload: allEvents } });
     }
   } catch (err) {
-    console.log(err);
     res.status(404).json({ success: false, data: { error: err } });
   }
 });
@@ -43,7 +41,6 @@ events.get("/:event_id", async (req, res) => {
 
 events.post("/", async (req, res) => {
   try {
-    console.log(req.body)
     const createdEvent = await createEvent(req.body);
     res.json(createdEvent);
   } catch (err) {
