@@ -2,12 +2,17 @@ const db = require("../db/dbConfig.js");
 
 const getAllbookings = async (event_id) => {
   try {
-    console.log(event_id, '<----hello')
     const allbookings = await db.any("SELECT * FROM bookings WHERE event_id=$1", event_id);
-    console.log("data retrieved from databse", allbookings);
     return allbookings;
   } catch (err) {
-    console.error("Error in getAllbookings");
+  }
+};
+
+const getAllBookingsDirect = async () => {
+  try {
+    const allbookings = await db.any("SELECT * FROM bookings");
+    return allbookings;
+  } catch (err) {
   }
 };
 
@@ -74,4 +79,5 @@ module.exports = {
   deletebooking,
   updatebooking,
   createbooking,
+  getAllBookingsDirect
 };
