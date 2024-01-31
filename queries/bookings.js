@@ -32,14 +32,15 @@ const getOnebooking = async (booking_id) => {
 const createbooking = async (booking) => {
   try {
     const createdbooking = db.one(
-      "INSERT INTO bookings (meetingName , meetingInRoomId , startDate ,endDate, attendees, event_id ) VALUES($1,$2,$3,$4,$5,$6) RETURNING *",
+      "INSERT INTO bookings (meetingName , meetingInRoomId , startDate ,endDate, attendees, event_id, user_id ) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
       [
         booking.meetingName,
         booking.meetingInRoomId,
         booking.startDate,
         booking.endDate,
         booking.attendees,
-        booking.event_id
+        booking.event_id,
+        booking.user_id
       ]
     );
     return createdbooking;
