@@ -24,8 +24,8 @@ const getOneEvent = async (event_id) => {
 const createEvent = async (event) => {
   try {
     const createdEvent = db.one(
-      "INSERT INTO events (eventname , capacity , floor, event_img) VALUES($1,$2,$3,$4) RETURNING *",
-      [event.eventName, event.capacity, event.floor, event.event_img]
+      "INSERT INTO events (eventname , capacity , floor, event_img, user_id) VALUES($1,$2,$3,$4,$5) RETURNING *",
+      [event.eventName, event.capacity, event.floor, event.event_img, 3]
     );
     return createdEvent;
   } catch (error) {
