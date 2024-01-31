@@ -16,6 +16,9 @@ app.get("/", (req, res) => {
 const bookingsDirectController = require("./controllers/bookingsDirectController.js")
 app.use("/bookings", bookingsDirectController)
 
+const usersController = require("./controllers/usersController")
+app.use("/users", usersController)
+
 app.get("*", (req, res) => {
     res.status(404).json({ success: false, data: { error: "page" } })
 })
