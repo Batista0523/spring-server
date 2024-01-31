@@ -24,8 +24,8 @@ const getOneEvent = async (event_id) => {
 const createEvent = async (event) => {
   try {
     const createdEvent = db.one(
-      "INSERT INTO events (eventName , capacity , floor) VALUES($1,$2,$3) RETURNING *",
-      [event.eventName, event.capacity, event.floor]
+      "INSERT INTO events (eventname , capacity , floor, event_img) VALUES($1,$2,$3,$4) RETURNING *",
+      [event.eventName, event.capacity, event.floor, event.event_img]
     );
     return createdEvent;
   } catch (error) {
@@ -48,10 +48,10 @@ const deleteEvent = async (event_id) => {
 
 const updateEvent = async (event_id, event) => {
   try {
-    const { eventName, capacity, floor } = event;
+    const { eventname, capacity, floor, event_img } = event;
     const updatedEvent = await db.one(
-      "UPDATE events SET eventName=$1 , capacity=$2, floor=$3 WHERE event_id=$4 RETURNING *",
-      [eventName, capacity, floor, event_id]
+      "UPDATE events SET eventname=$1 , capacity=$2, floor=$3, event_img=$4 WHERE event_id=$5 RETURNING *",
+      [eventname, capacity, floor, event_img, event_id]
     );
     return updatedEvent;
   } catch (err) {

@@ -5,6 +5,7 @@ const getAllbookings = async (event_id) => {
     const allbookings = await db.any("SELECT * FROM bookings WHERE event_id=$1", event_id);
     return allbookings;
   } catch (err) {
+    return err
   }
 };
 

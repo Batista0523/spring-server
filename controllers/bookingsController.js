@@ -16,7 +16,7 @@ bookings.get("/", checkBookings, async (req, res) => {
   const { event_id } = req.params;
   const allbookings = await getAllbookings(event_id);
   try {
-    if (allbookings[0]) {
+    if (allbookings[0]||allbookings.length===0) {
       res.status(200).json({ success: true, data: { payload: allbookings } });
     }
   } catch (err) {
